@@ -5,8 +5,6 @@ import User from "../models/userSchema.js";
 @route   GET /api/v1/users
 */
 
-
-
 export const getUsers = async (req, res) => {
     try {
         const users = await User.find();
@@ -46,7 +44,7 @@ export const createUser = async (req, res) => {
 
     try {
         await newUser.save();
-        res.status(201).json({ message: `User ${user.name} created successfully` ,newUser});
+        res.status(201).json({ message: `User ${user.name} created successfully`, newUser });
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
@@ -63,15 +61,8 @@ export const updateUser = async (req, res) => {
     const { id } = req.params;
     const user = req.body;
 
-    // User.findByIdAndUpdate(id,user,(err,updateUser)=>{
-    //     if(err){
-    //         res.status(404).json({message:err.message})
-    //     }else{
-    //         res.status(200).json(updateUser)
-    //     }
-    // })
-    const updatedUser=await User.findByIdAndUpdate(id,user,{new:true})
-    res.status(200).json({message:`user ${updatedUser.name} updated successfully`,updatedUser})
+    const updatedUser = await User.findByIdAndUpdate(id, user, { new: true })
+    res.status(200).json({ message: `user ${updatedUser.name} updated successfully`, updatedUser })
 
 }
 
@@ -84,11 +75,11 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
     const { id } = req.params;
 
-  try {
-    const deletedUser = await User.findByIdAndDelete(id);
-    res.status(204).json({ message: `User ${deletedUser.name} deleted successfully` });
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-    
-  }
+    try {
+        const deletedUser = await User.findByIdAndDelete(id);
+        res.status(204).json({ message: `User ${deletedUser.name} deleted successfully` });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+
+    }
 }
